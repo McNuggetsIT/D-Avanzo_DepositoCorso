@@ -6,6 +6,7 @@
 # step 2 funzioni 
 # step 3 decoratori
 
+#Lista delle mie persone
 persone = [
     ("Luca", "Rossi", 28),
     ("Giulia", "Bianchi", 34),
@@ -19,17 +20,19 @@ persone = [
     ("Chiara", "Romano", 23)
 ]
 
+#Qui sfrutto una funzione per stampare le persone
 def stampa_persone(persone):
     for nome, cognome, eta in persone:
         print(f"Nome: {nome:<10} Cognome: {cognome:<10} Età: {eta}")
 
-
+#Qui sfrutto una funzione per cercare una persona
 def find_person(nome_cercato):
     for persona in persone:
         if persona[0].lower() == nome_cercato.lower():
             return persona
     return "persona non trovata"
 
+#Qui sfrutto una funzione per aggiungere una persona
 def add_person():
     new_name = input("Inserisci nome: ").lower()
     new_surname = input("Inserisci cognome: ").lower()
@@ -41,8 +44,9 @@ def add_person():
         print("Persona già esistente")
     else:
         persone.append(new_person)
-    print(persone)        
-    
+    print(persone)
+
+#Qui sfrutto una funzione per modificare una persona    
 def modify_person():
     stampa_persone(persone)
     persona = input("Scegli chi modificare").lower()
@@ -63,7 +67,8 @@ def modify_person():
             print(f"Nome '{persona}' cambiato in '{new_age}'")
         else:
             print("Persona non trovata")    
-    
+
+#Qui sfrutto una funzione per eliminare una persona    
 def delete_person(nome_cercato):
     stampa_persone(persone)
     for persona in persone:
@@ -72,10 +77,12 @@ def delete_person(nome_cercato):
             print(f"{nome_cercato} eliminato con successo")
             return
     return "Persona non trovata"
-    
+
 print("Fai una scelta:  \n1: Cerca persona  \n2: Aggiungi una persona \n3: Modifica una persona  \n5: Elimina una persona")
 
 scelta = input("Scegli cosa vuoi fare digitando un numero: ")
+
+#Menu per la scelta del crud
 match scelta :
     case "1":
         trovapersona= find_person(input("Scrivi chi vuoi cercare: "))
