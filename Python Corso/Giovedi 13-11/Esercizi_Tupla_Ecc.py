@@ -24,10 +24,12 @@ while check:
                 print("Dispari")
 
     except ValueError:
+        
         #Lo uso come try catch ( se mi da errore sopra e non trasforma in int va sotto)
         # Se non è convertibile in int, rimane una stringa
         #So che non servirebbe fare istance anche sotto ma troppo pigro a pensare ad altro 
         #o toglierlo
+        
         if isinstance(textOrNum, str):
             print("La stringa ha", len(textOrNum), "caratteri")
 

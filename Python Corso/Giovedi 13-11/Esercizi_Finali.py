@@ -22,6 +22,7 @@ while check == True:
 # 2. Ciclo for
 # Scrivi un programma che chiede all’utente una parola.
 # Usa un ciclo for per stampare ogni lettera della parola su una nuova riga.
+
 frase = input("Scrivi una parola o frase: ")
 for char in frase:
     print(char)
@@ -33,9 +34,9 @@ for char in frase:
 # Usa un ciclo for con range per stampare i numeri da 0 a N con lo step indicato.
 
 numero = int(input("Scrivi un numero"))
-numeroDiStep = int(input("Scrivi quanti step"))
+numeroStop = int(input("Scrivi quanti step"))
 stepNumero = int(input("Scrivi un numero per cui il tuo numero base deve fare uno step in avanti"))
     
-for i in range(numero, numeroDiStep +1 ,stepNumero):
+for i in range(numero, numeroStop +1 ,stepNumero):
     print(i)
     

@@ -1,0 +1,55 @@
+# Esercizio Completo
+#
+# Descrizione: Scrivi un programma che chieda all'utente di inserire un numero intero positivo n.
+# Il programma deve poi eseguire le seguenti operazioni:
+#
+# 1. Utilizzare un ciclo while per garantire che l'utente inserisca un numero positivo.
+#    Se l'utente inserisce un numero negativo o zero, il programma deve continuare a chiedere un numero
+#    fino a quando non viene inserito un numero positivo.
+#
+# 2. Utilizzare un ciclo for con range per calcolare e stampare la somma dei numeri pari da 1 a n.
+#
+# 3. Utilizzare un ciclo for per stampare tutti i numeri dispari da 1 a n.
+#
+# 4. Utilizzare una struttura if per determinare se n è un numero primo.
+#    Un numero primo è divisibile solo per 1 e per se stesso.
+#    Il programma deve stampare se n è primo o no.
+
+checkNumber = True
+numPrimi = ""
+numOddStr = ""
+sommaPari = 0
+
+# Funzione che controlla se un numero è primo
+def is_primo(n):
+    if n <= 1:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+while checkNumber:
+    numberInput = int(input("Scrivi un numero Positivo: "))
+    if numberInput <= 0:
+        print("Errore: Inserisci un numero Positivo")
+    else:
+        checkNumber = False
+
+        # Ciclo da 1 fino al numero scelto
+        for num in range(1, numberInput + 1):
+            if num % 2 == 0:
+                sommaPari += num   # sommo i numeri pari
+            else:
+                # Se è dispari, controllo se è primo oppure no
+                if is_primo(num):
+                    numPrimi += str(num) + " "
+                else:
+                    numOddStr += str(num) + " "
+
+# Stampo i risultati finali
+print("La somma dei numeri pari è:", sommaPari)
+print("I tuoi numeri primi sono:", numPrimi)
+print("I tuoi numeri dispari sono:", numOddStr)
+
+      
