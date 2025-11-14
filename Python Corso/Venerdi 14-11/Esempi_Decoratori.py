@@ -1,3 +1,4 @@
+
 #i decoratori sono un funzione che modifica di comportamento di un altra funzione.
 #il metodo senza modificarne direttamente il codice
 
@@ -54,3 +55,39 @@ print("risultato è " , somma(3,4))
 # • Sintassi @decoratore:
 #   È una scorciatoia per scrivere: funzione = decoratore(funzione)
 #   Si mette sopra la definizione della funzione da decorare.
+
+#SPIEGAZIONE:
+
+#logger(funzione) (il nostro decoratore) MA LA CONVENZIONE è d_logger()
+
+def logger(funzione):
+    def wrapper(*args, **kwargs):
+        print(f"Chiamata a {funzione._name_} con argomenti: {args} e {kwargs}")
+        risultato = funzione(*args, **kwargs)
+        print(f"Risultato di {funzione._name_}:{risultato}")
+        return risultato
+    return wrapper
+
+@logger
+def moltiplica(a,b):
+    return a*b
+#chiamata alla funzione decorata
+print(moltiplica(3,4))
+
+
+import time
+
+def calcola_tempo(funzione):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        risultato = funzione(*args, **kwargs)
+        end_time = time.time()
+        print(f"Tempo di esecuzione: {end_time - start_time} secondi")
+        return risultato
+    return wrapper
+
+@calcola_tempo
+def calcolo_lento():
+    time.sleep(2)
+    print("Calcolo completato")
+calcolo_lento()

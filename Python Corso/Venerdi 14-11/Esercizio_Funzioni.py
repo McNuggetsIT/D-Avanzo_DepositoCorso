@@ -38,13 +38,13 @@ def ripeti(funzione):
 
 @ripeti
 def find_num ():
-    numToFind = random.randint(1, 100)
-    numTry = None   
+    num_ToFind = random.randint(1, 100)
+    num_Try = None   
 
-    while numTry != numToFind:
-        numTry = int(input("Prova a indovinare il numero da (1-100): "))
-        checknum(numTry , numToFind)
-        if numTry == 101:
+    while num_Try != num_ToFind:
+        num_Try = int(input("Prova a indovinare il numero da (1-100): "))
+        checknum(num_Try , num_ToFind)
+        if num_Try == 101:
             break
 find_num()
 
