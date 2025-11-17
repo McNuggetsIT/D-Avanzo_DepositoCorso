@@ -16,6 +16,27 @@
 #I metodi rappresentano il comportamento di un oggetto.
 
 #Creazione di una classe:
+# ============================================================
+# Riepilogo: Tipi di metodi nelle classi Python
+# ============================================================
+
+# @staticmethod
+# - Funziona come una funzione ordinaria, ma è definita all'interno della classe.
+# - Non accede né a self né a cls.
+# - Utile per raggruppare funzioni di utilità logicamente collegate alla classe.
+
+# @classmethod
+# - Riceve la classe (cls) come primo parametro.
+# - Può modificare gli attributi di classe.
+# - Spesso usato per creare metodi factory.
+# - Utile per gestire comportamenti legati alla classe e sfruttare il polimorfismo.
+
+# Metodo di istanza (senza decoratore)
+# - Definito senza decoratori particolari.
+# - Riceve come primo parametro l'istanza (self).
+# - Opera sui dati specifici di quell'istanza.
+
+
 
 class Automobile:
     numero_di_ruote = 4
@@ -25,7 +46,11 @@ class Automobile:
         self.modello = modello
     
     def stampa_info(self):
-        print("l'automobileè una", self.marca, self.modello)
+        print("l'automobile è una", self.marca, self.modello)
+        
+    # metodo speciale per stampare in modo leggibile
+    def __str__(self):
+        return f"Automobile(marca={self.marca}, modello={self.modello})"
         
 #Creazione di oggetti da una classe
 #AUTO1 Sarebbe il self.
@@ -35,7 +60,7 @@ auto2 = Automobile("BMW","X3")
 auto1.stampa_info()
 auto2.stampa_info()
 
-print(auto1) #<__main__.Automobile object at 0x00000272D0C36A50> Stampa questo
+print(auto1) # Ora stampa in modo leggibile grazie a __str__
 
 class Persona:
     #Rappresenta una persona come nome ed eta
@@ -70,8 +95,10 @@ class Persona2:
     def saluta(self):
         return f"Ciao, mi chiamo {self.nome} e ho {self.eta} anni."
 
-p1 = Persona("Luca", 28)
-print(p1.saluta())  # Ciao, mi chiamo Luca e ho 28 anni.
+
+# Creazione dell'oggetto con la classe giusta
+p1 = Persona2("Luca", 28)
+print(p1.saluta())
 
 
 #- Metodi di classe:
@@ -82,15 +109,15 @@ class Persona3:
 
     def __init__(self, nome):
         self.nome = nome
-        Persona.popolazione += 1
+        Persona3.popolazione += 1
 
     @classmethod
     def conta_persone(cls):
         return f"Ci sono {cls.popolazione} persone create."
 
-p1 = Persona("Luca")
-p2 = Persona("Giulia")
-print(Persona.conta_persone())  # Ci sono 2 persone create.
+p1 = Persona3("Luca")
+p2 = Persona3("Giulia")
+print(Persona3.conta_persone())  # Ci sono 2 persone create.
 
 
 #- Metodi statici:
@@ -100,5 +127,26 @@ class Calcolatrice:
     @staticmethod
     def somma(a, b):
         return a + b
+risultato = Calcolatrice.somma(5,3)
+print(risultato)
 
-print(Calcolatrice.somma(3, 5))  # 8
+#Esempio di metodo decorato
+
+#il metodo mostra_numero_istanze è un metodo di classe che utilizza il decoratore
+# @classmethod il parametro cls rappresenta la classe stessa e permette di accedere ad atrtributi di classe.
+
+class Contatore:
+    numero_istanza = 0
+    
+    def __init__(self):
+        Contatore.numero_istanza += 1
+    
+    @classmethod
+    def mostra_numero_istanza(cls):
+        print(f"Sono state create {cls.numero_istanza} istanze")
+
+#Creazione di alcuni istanze
+c1 = Contatore()
+c2 = Contatore()
+
+Contatore.mostra_numero_istanza()
