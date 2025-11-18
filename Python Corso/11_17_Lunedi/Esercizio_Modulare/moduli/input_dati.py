@@ -11,6 +11,7 @@ def leggi_dati_vendita():
         else :
             print("error inserisci un numero")
             #con questo mi prendo i dati dal file txt (mi son aiutato per farlo)
+            
 def leggi_dati_da_file(percorso = "Python Corso/11_17_Lunedi/Esercizio_Modulare/dati_test.txt"):
     with open(percorso, "r") as f:
         dati = f.readline().strip()

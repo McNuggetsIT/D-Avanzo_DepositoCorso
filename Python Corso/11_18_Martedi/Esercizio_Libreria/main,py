@@ -1,0 +1,46 @@
+from Moduli.libreria import Libreria
+from Moduli.input_dati import crea_libro_da_input, cerca_libro_da_input
+from Moduli.visualizza_risultato import mostra_catalogo, mostra_risultati_ricerca
+
+
+def main():
+    libreria = Libreria()
+    libreria.carica_da_file("Python Corso/11_18_Martedi/Esercizio_Libreria/libri.txt")
+    mostra_catalogo(libreria)
+
+
+    while True:
+        print("\n--- Menu ---")
+        print("1. Aggiungi libro")
+        print("2. Rimuovi libro")
+        print("3. Cerca per titolo")
+        print("4. Mostra catalogo")
+        print("5. Esci")
+
+        scelta = input("Scegli un'opzione: ")
+
+        if scelta == "1":
+            libro = crea_libro_da_input()
+            libreria.aggiungi_libro(libro)
+
+        elif scelta == "2":
+            isbn = input("Inserisci ISBN del libro da rimuovere: ")
+            libreria.rimuovi_libro(isbn)
+
+        elif scelta == "3":
+            titolo = input("Inserisci titolo (anche parziale): ")
+            risultati = libreria.cerca_per_titolo(titolo)
+            mostra_risultati_ricerca(risultati)
+
+        elif scelta == "4":
+            mostra_catalogo(libreria)
+
+        elif scelta == "5":
+            print("Chiusura programma...")
+            break
+
+        else:
+            print("Scelta non valida, riprova.")
+
+if __name__ == "__main__":
+    main()
