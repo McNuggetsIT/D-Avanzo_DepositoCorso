@@ -30,8 +30,6 @@ class Libreria:
             if titolo.lower() in libro.titolo.lower():
                 risultati.append(libro)
         return risultati
-    
-    from Moduli.libro import Libro   # Import corretto in libreria.py
 
     def carica_da_file(self, percorso):
         with open(percorso, "r", encoding="utf-8") as f:
