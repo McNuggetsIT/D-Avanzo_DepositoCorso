@@ -4,13 +4,12 @@ class Auto(Veicolo):
     def __init__(self, marca, modello, anno, num_porte, alimentazione, colore):
         super().__init__(marca, modello, anno)
         self._num_porte = num_porte
-        self._alimentazione = alimentazione   
+        self._alimentazione = alimentazione
         self._colore = colore
 
     def suona_clacson(self):
         print("Beep beep!")
 
-    
     def cambia_colore(self, nuovo_colore):
         self._colore = nuovo_colore
         print(f"Colore cambiato in {nuovo_colore}")
@@ -22,14 +21,15 @@ class Auto(Veicolo):
         return f"{self._marca} {self._modello} ({self._anno}) - {self._num_porte} porte, {self._alimentazione}, {self._colore}"
 
 
+
 class Furgone(Veicolo):
     def __init__(self, marca, modello, anno, num_porte, cap_carico, altezza, lunghezza):
         super().__init__(marca, modello, anno)
         self._num_porte = num_porte
-        self._cap_carico = cap_carico   
-        self._altezza = altezza       
-        self._lunghezza = lunghezza     
-        self._carico_attuale = 0        
+        self._cap_carico = cap_carico
+        self._altezza = altezza
+        self._lunghezza = lunghezza
+        self._carico_attuale = 0
 
     def carica(self, peso):
         if self._carico_attuale + peso <= self._cap_carico:
@@ -52,10 +52,11 @@ class Furgone(Veicolo):
         return f"{self._marca} {self._modello} ({self._anno}) - {self._cap_carico}kg, {self._num_porte} porte"
 
 
+
 class Motocicletta(Veicolo):
     def __init__(self, marca, modello, anno, tipo, cilindrata, colore):
         super().__init__(marca, modello, anno)
-        self._tipo = tipo           
+        self._tipo = tipo
         self._cilindrata = cilindrata
         self._colore = colore
 
@@ -71,3 +72,4 @@ class Motocicletta(Veicolo):
 
     def __str__(self):
         return f"{self._marca} {self._modello} ({self._anno}) - {self._tipo}, {self._cilindrata}cc, {self._colore}"
+
