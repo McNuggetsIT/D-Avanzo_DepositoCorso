@@ -55,7 +55,7 @@ def preleva():
         else:
             print("Errore inserisci un valore valdido da 1+€")
             
-def visualiza_saldo():
+def visualizza_saldo():
     return cb.get_saldo()
         
 print("===MENU===")
@@ -70,8 +70,8 @@ match scelta:
     case "1":
         deposita()
     case "2":
-        pass
+        preleva()
     case "3":
-        pass
+        visualizza_saldo()
     case _:
         print("Errore scelta")

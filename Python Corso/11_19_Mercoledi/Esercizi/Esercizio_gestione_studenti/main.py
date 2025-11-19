@@ -22,7 +22,7 @@ def main():
         print("5. Aggiungi Professore")
         print("0. Esci")
 
-        scelta = input("Seleziona un'opzione: ").strip()
+        scelta = input("Seleziona un'opzione: ")
 
         if scelta == "1":
             if not studenti:
@@ -49,8 +49,8 @@ def main():
             for stud in studenti:
                 print("-", stud.get_nome())
 
-            nome_input = input("Inserisci il nome (anche parziale): ").strip().lower()
-            materia = input("Inserisci la materia: ").strip().lower()
+            nome_input = input("Inserisci il nome (anche parziale): ").lower()
+            materia = input("Inserisci la materia: ").lower()
 
             trovato = False
             for stud in studenti:
@@ -63,16 +63,16 @@ def main():
                 print("Studente non trovato.")
 
         elif scelta == "4":
-            nome = input("Nome studente: ").strip()
+            nome = input("Nome studente: ")
             try:
-                eta = int(input("Età studente: ").strip())
+                eta = int(input("Età studente: "))
             except ValueError:
                 print("Età non valida.")
                 continue
 
             voti = {}
             while True:
-                materia = input("Inserisci materia (X per terminare): ").strip().lower()
+                materia = input("Inserisci materia (X per terminare): ").lower()
                 if materia == "x":
                     break
                 if not materia:
@@ -80,7 +80,7 @@ def main():
                     continue
                 voti[materia] = []
                 while True:
-                    voto_str = input(f"Inserisci voto per {materia} (X per terminare): ").strip().lower()
+                    voto_str = input(f"Inserisci voto per {materia} (X per terminare): ").lower()
                     if voto_str == "x":
                         break
                     try:
@@ -95,13 +95,13 @@ def main():
             print("Studente aggiunto.")
 
         elif scelta == "5":
-            nome = input("Nome professore: ").strip()
+            nome = input("Nome professore: ")
             try:
-                eta = int(input("Età professore: ").strip())
+                eta = int(input("Età professore: "))
             except ValueError:
                 print("Età non valida.")
                 continue
-            materia = input("Materia insegnata: ").strip()
+            materia = input("Materia insegnata: ")
             professori.append(Professore(nome, eta, materia))
             print("Professore aggiunto.")
 
