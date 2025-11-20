@@ -1,0 +1,100 @@
+# Simulazione dell'Overloading
+# In Python non è possibile definire più metodi con lo stesso nome e parametri diversi,
+# come avviene in altri linguaggi (es. Java o C++).
+# Tuttavia, è possibile simulare l'overloading usando parametri opzionali o variadici.
+
+# Esempio:
+
+class Stampa:
+    def mostra(self, a=None, b=None):
+        if a is not None and b is not None:
+            print(a+b)
+        elif a is not None:
+            print(a)
+        else:
+            print("Niente da mostrare")
+
+# Esempi di utilizzo
+s = Stampa()
+
+s.mostra()              # Output: Niente da mostrare
+s.mostra(10)            # Output: 10
+s.mostra("Ciao")        # Output: Ciao
+s.mostra(5, 7)          # Output: 12
+s.mostra("Hello ", "World")  # Output: Hello World
+
+
+# Polimorfismo Passivo in Python
+# In Python non serve che un oggetto appartenga a una gerarchia di classi o implementi un'interfaccia.
+# Basta che abbia i metodi o attributi richiesti: se "si comporta" come ci si aspetta, può essere usato.
+# Questo concetto si chiama duck typing: se cammina e starnazza come un'anatra, è trattato come tale.
+
+# Esempio di polimorfismo passivo (duck typing)
+
+class Cane:
+    def parla(self):
+        return "Bau!"
+
+class Gatto:
+    def parla(self):
+        return "Miao!"
+
+def fai_parlare(animale):
+    # Non importa di che tipo sia l'animale,
+    print(animale.parla())
+
+cane = Cane()
+gatto = Gatto()
+
+fai_parlare(cane)   # Output: Bau!
+fai_parlare(gatto)  # Output: Miao!
+
+# Esempio di polimorfismo con figure geometriche
+# Ogni classe ha un metodo 'disegna()', anche se sono tipi diversi.
+# Possiamo usare una funzione generica e una lista di oggetti,
+# senza preoccuparci del tipo specifico, basta che abbiano il metodo 'disegna'.
+
+class Cerchio:
+    def disegna(self):
+        print("Disegno un cerchio")
+
+class Rettangolo:
+    def disegna(self):
+        print("Disegno un rettangolo")
+
+def disegna_figura(figura):
+    # Basta che 'figura' abbia il metodo 'disegna'
+    figura.disegna()
+
+figure = [Cerchio(), Rettangolo()]  # Lista con oggetti di tipo diverso
+
+# Iteriamo e disegniamo ogni figura
+for figura in figure:
+    disegna_figura(figura)
+
+
+# Esempio di polimorfismo con la funzione built-in len()
+# La funzione len() funziona con diversi tipi di oggetti (liste, stringhe, dizionari, ecc.)
+# purché implementino il metodo speciale __len__()
+
+# Lista
+print(len([1, 2, 3]))    # Output: 3
+
+# Stringa
+print(len("Ciao"))       # Output: 4
+
+# Dizionario
+print(len({"a": 1, "b": 2}))    # Output: 2
+
+
+# Controllo __name__ == "__main__"
+# Questa condizione verifica se il file viene eseguito direttamente (non importato da un altro modulo).
+# Se è vero, il blocco di codice viene eseguito.
+# È una convenzione comune in Python per distinguere tra script principale e modulo importato.
+
+if __name__ == "__main__":
+    print("main")    # Eseguito se il file è il principale
+else:
+    print("import")  # Eseguito se il file è importato da un altro script
+
+
