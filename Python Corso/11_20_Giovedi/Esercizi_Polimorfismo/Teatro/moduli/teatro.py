@@ -28,3 +28,4 @@ class Teatro:
         for posto in self._posti:
             if posto.is_occupato():
                 print(posto)
+    
