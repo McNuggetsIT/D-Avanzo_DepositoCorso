@@ -3,9 +3,9 @@ import numpy as np
 base = np.arange(50)
 arrcasual = np.random.randint(49,102, size=50)
 arrf = np.concatenate((base,arrcasual))
-
 print(arrf)
 print(np.shape(arrf))
+
 arrType = arrf.astype(np.float64)
 print(arrType.dtype)
 
@@ -14,7 +14,7 @@ print("Primi 10",arrslice1)
 arrslice2= arrf[:-7]
 print("Ultimi",arrslice2)
 arrslice3= arrf[5:20]
-print("5-15", arrslice3)
+print("5-20", arrslice3)
 arrslice4= arrf[:: 4]
 print("Saltelli" ,arrslice4)
 
