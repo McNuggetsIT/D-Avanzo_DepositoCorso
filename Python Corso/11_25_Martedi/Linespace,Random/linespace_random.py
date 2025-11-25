@@ -19,6 +19,6 @@ sum_value = np.sum(arr)          # Somma degli elementi → Output: 15
 mean_value = np.mean(arr)        # Media degli elementi → Output: 3.0
 std_value = np.std(arr)          # Deviazione standard → Output: 1.4142135623730951
 
-# print("Sum:", sum_value)
-# print("Mean:", mean_value)
-# print("Standard Deviation:", std_value)
+print("Sum:", sum_value)
+print("Mean:", mean_value)
+print("Standard Deviation:", std_value)
