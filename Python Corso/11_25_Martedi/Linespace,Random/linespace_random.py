@@ -22,3 +22,5 @@ std_value = np.std(arr)          # Deviazione standard → Output: 1.41421356237
 print("Sum:", sum_value)
 print("Mean:", mean_value)
 print("Standard Deviation:", std_value)
+
+
