@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 file_path = "Python Corso/11_27_Venerdi/Esercizi_Pandas/Esercizio_1/dati.csv"
 
@@ -32,6 +31,7 @@ print("Media Salario:", mes)
 
 mede = df['Eta'].median()
 meds = df['Salario'].median()
+
 print("Mediana Età:", mede)
 print("Mediana Salario:", meds)
 
@@ -43,7 +43,6 @@ print("Deviazione Standard Salario:", std_sal)
 
 df = df.drop_duplicates()
 print(df)
-
 
 print("--------------------------------Sost mancanti--------------------------------")
 df['Eta'].fillna(df['Eta'].mean(), inplace=True)
@@ -59,10 +58,13 @@ print(df)
 
 
 print("--------------------------------agg col 'Categoria--------------------------------'")
+
+#'self.df['Age Category'] = ['Senior' if age > 65 else ('Adult' if age>18 else 'Young') for age in self.df['Age']]
 df['Categoria'] = df['Eta'].apply(categoria)
 print(df)
-
 
 print("--------------------------------salvatagio--------------------------------")
 df.to_csv("Python Corso/11_27_Venerdi/Esercizi_Pandas/Esercizio_1/dati_puliti.csv", index=False)
 print("File salvato")
+
+

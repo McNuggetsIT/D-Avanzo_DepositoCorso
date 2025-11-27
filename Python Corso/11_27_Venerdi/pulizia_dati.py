@@ -29,5 +29,5 @@ print("Df dopo pulizia")
 print(df_clean)
 
 #Stampa df con dati mancanti sostitutiti
-print("Df con dati mancanti")
+print("Df con dati mancanti") 
 print(df)
