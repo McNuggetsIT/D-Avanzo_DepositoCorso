@@ -45,3 +45,24 @@ df['Maggiorenne'] = df['Eta'] >= 18
 print("DataFrame con colonna 'maggiorenne': ")
 print(df)
 
+# Pandas permette un'indicizzazione flessibile e sofisticata, facilitando l'accesso ai dati
+# e la loro manipolazione. Ad esempio, l'uso di indici gerarchici (MultiIndex)
+# consente di lavorare con dati ad alta dimensionalità all'interno di strutture tabulari bidimensionali.
+
+# Unione e concatenazione: con Pandas è possibile combinare facilmente diverse fonti di dati
+# tramite operazioni come merge, per unire DataFrame in modo simile ai join SQL,
+# oppure concat, per concatenare DataFrame lungo un asse specifico,
+# gestendo correttamente anche indici che non si allineano.
+
+
+# PIVOT e PIVOT_TABLE sono due metodi che permettono di trasformare i dati,
+# facilitando la ristrutturazione e la creazione di tabelle pivot.
+# Sono utili per riorganizzare i dati in un formato più appropriato all’analisi.
+
+# GroupBy (approccio SPLIT–APPLY–COMBINE) permette di dividere i dati in gruppi,
+# applicare una funzione a ciascun gruppo e combinare i risultati in una nuova struttura.
+# È utile per aggregazioni complesse, trasformazioni e operazioni di filtraggio.
+
+# Gestione del tempo: Pandas offre funzionalità avanzate per la manipolazione delle serie temporali.
+# Include la generazione di periodi di tempo, la conversione di frequenze,
+# operazioni di windowing o rolling statistics e la gestione di date e orari.

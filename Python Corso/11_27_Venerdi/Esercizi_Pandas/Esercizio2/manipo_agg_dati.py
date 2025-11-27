@@ -30,7 +30,6 @@ print("AAAAAAAAAAAAAAAAAAAAA")
 #Creo il csv di filtrato
 df_filtrato.to_csv("Python Corso/11_27_Venerdi/Esercizi_Pandas/Esercizio2/venditemag.csv")
 
-print("AAAAAAAAAAAAAAAAAAAAA")
 #Sorto i value ToTVendite -> Modo Decrescente
 totven = df.sort_values(by='TotVendite', ascending=False)
 print(totven)
@@ -38,7 +37,9 @@ print(totven)
 print("AAAAAAAAAAAAAAAAAAAAA")
 #Creo le vendite raggruppando Citta e quantità
 vendite_citta= df.groupby('Città')['Quantità'].sum()
+vendite_cittTot= df.groupby('Città')['TotVendite'].sum()
 print(vendite_citta)
+print(vendite_cittTot)
 
 #VA BEH ADORO installato matplotlib e creato un grafico
 vendite_citta.plot(kind='bar', title='Quantità vendute per città')
