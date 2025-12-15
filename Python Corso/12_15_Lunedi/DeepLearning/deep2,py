@@ -1,0 +1,125 @@
+# --- 1. PREPARAZIONE DATI ---
+import itertools
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from tensorflow.keras import layers, models
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+# Carichiamo il dataset come Bunch
+housing_bunch = fetch_california_housing()
+
+# Convertiamo in DataFrame Pandas
+housing = pd.DataFrame(housing_bunch.data, columns=housing_bunch.feature_names)
+housing["target"] = housing_bunch.target
+
+# Selezioniamo solo colonne numeriche
+numeric_cols = housing.select_dtypes(include=["float", "int"]).columns.tolist()
+
+# Rimozione outlier con metodo IQR
+for col in numeric_cols:
+    Q1 = housing[col].quantile(0.25)
+    Q3 = housing[col].quantile(0.75)   # quartile superiore standard
+    IQR = Q3 - Q1
+    lower, upper = Q1 - 1.5*IQR, Q3 + 1.5*IQR
+    housing[col] = np.where(housing[col].between(lower, upper), housing[col], np.nan)
+
+housing = housing.dropna()
+
+# Funzione di feature engineering
+def generate_comprehensive_features(df_input, cols_to_combine):
+    df_eng = df_input.copy()
+    math_cols = [c for c in cols_to_combine if c not in ['Latitude', 'Longitude', 'Geo_Cluster']]
+    
+    print(f"   -> Generazione combinazioni su {len(math_cols)} colonne base...")
+
+    # A. LOGARITMI
+    for col in math_cols:
+        if df_eng[col].min() >= 0:
+            df_eng[f'LOG_{col}'] = np.log1p(df_eng[col])
+
+    # B. MOLTIPLICAZIONI
+    for col1, col2 in itertools.combinations(math_cols, 2):
+        col_name = f'MULT_{col1}_x_{col2}'
+        df_eng[col_name] = df_eng[col1] * df_eng[col2]
+
+    # C. DIVISIONI / RAPPORTI
+    for col1, col2 in itertools.permutations(math_cols, 2):
+        col_name = f'RATIO_{col1}_div_{col2}'
+        df_eng[col_name] = df_eng[col1] / (df_eng[col2] + 1e-5)
+
+    return df_eng
+
+# Separiamo feature e target come DataFrame
+X_df = housing.drop(columns=["target"])
+y = housing["target"]
+
+# Generazione feature ingegnerizzate
+cols_for_math = [c for c in X_df.columns if c != 'Geo_Cluster']
+X_full = generate_comprehensive_features(X_df, cols_for_math)
+
+# Pulizia inf/nan generati dalle divisioni
+X_full.replace([np.inf, -np.inf], np.nan, inplace=True)
+X_full.fillna(0, inplace=True)
+
+# Ricostruzione dataset finale
+housing = pd.concat([X_full, y], axis=1)
+housing.info()
+
+# Ora convertiamo in NumPy array
+X = housing.drop(columns=["target"]).values
+y = housing["target"].values
+
+# Split Train/Test
+X_train_full, X_test, y_train_full, y_test = train_test_split(X, y, random_state=42)
+X_train, X_valid, y_train, y_valid = train_test_split(X_train_full, y_train_full, random_state=42)
+
+# Scaling (fondamentale per le reti neurali)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_valid = scaler.transform(X_valid)
+X_test = scaler.transform(X_test)
+
+print(f"Shape Input: {X_train.shape[1]} features")
+
+
+# --- 2. COSTRUZIONE MODELLO ---
+model_reg = models.Sequential([
+    layers.Input(shape=(X_train.shape[1],)),   # Input esplicito
+    layers.Dense(128, activation="relu"),       # Primo hidden layer
+    layers.Dense(128, activation="relu"),
+    layers.Dense(64, activation="relu"),   # Secondo hidden layer
+    layers.Dense(1)                            # Output layer (regressione)
+])
+
+# --- 3. COMPILAZIONE ---
+model_reg.compile(
+    loss="mse",                # Mean Squared Error
+    optimizer="adam",          # Adam gestisce il learning rate
+    metrics=["mae"]            # Mean Absolute Error
+)
+
+# --- 4. TRAINING ---
+history = model_reg.fit(
+    X_train, y_train,
+    epochs=20,
+    batch_size=32,
+    validation_data=(X_valid, y_valid),
+    verbose=1
+)
+
+# --- 5. ANALISI DEI RISULTATI ---
+mse_test, mae_test = model_reg.evaluate(X_test, y_test)
+print(f"\nErrore Medio Assoluto sul Test Set: {mae_test:.2f} (in centinaia di migliaia di $)")
+
+# Visualizzazione della curva di apprendimento
+pd.DataFrame(history.history).plot(figsize=(8, 5))
+plt.grid(True)
+plt.title("Curve di Training (Loss vs Val Loss)")
+plt.show()
+
+# --- 6. MODEL SUMMARY ---
+model_reg.summary()
